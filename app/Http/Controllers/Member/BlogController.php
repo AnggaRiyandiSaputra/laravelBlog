@@ -13,7 +13,9 @@ class BlogController extends Controller
      */
     public function index()
     {
-        //
+        $posts = Posts::getPostByUserLogin();
+
+        return view('member.blogs.index', ['posts' => $posts]);
     }
 
     /**
