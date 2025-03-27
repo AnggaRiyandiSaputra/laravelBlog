@@ -26,6 +26,8 @@ Route::middleware('auth')->group(function () {
         'edit' => 'member.blogs.edit',
         'update' => 'member.blogs.update',
         'destroy' => 'member.blogs.destroy',
+    ])->parameters([
+        'blogs' => 'posts'
     ]);
 });
 
