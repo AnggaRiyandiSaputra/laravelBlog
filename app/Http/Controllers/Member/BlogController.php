@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Member;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PostsRequest;
 use App\Models\Posts;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
@@ -45,17 +47,20 @@ class BlogController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Posts $posts)
+    public function edit(Posts $blog)
     {
-        //
+        return view('member.blogs.edit', ['blog' => $blog]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Posts $posts)
+    public function update(PostsRequest $request, Posts $blog): RedirectResponse
     {
-        //
+        $validated = $request->validated();
+        $blog->update($validated);
+
+        return redirect()->route('member.blogs.index')->with('success', 'Data berhasil diupdate');
     }
 
     /**
