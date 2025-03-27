@@ -37,7 +37,10 @@
                             </div>
                             <div>
                                 <x-input-label for="thumbnail" value="Thumbnail" />
-                                <x-text-input id="thumbnail" name="thumbnail" type="file" class="mt-1 block w-full" :value="old('thumbnail', $blog->thumbnail)" autofocus autocomplete="thumbnail" />
+                                @isset($blog->thumbnail)
+                                <img src="{{asset('storage/thumbnails/'.$blog->thumbnail)}}" alt="thumbnail" class="rounded-md border-gray-300 max-w-40 p-2>
+                                @endisset
+                                <x-text-input id=" thumbnail" name="thumbnail" type="file" class="mt-1 block w-full" :value="old('thumbnail', $blog->thumbnail)" autofocus autocomplete="thumbnail" />
                                 <x-input-error class="mt-2" :messages="$errors->get('thumbnail')" />
                             </div>
                             <div>
