@@ -15,7 +15,11 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $posts = Posts::getPostByUserLogin();
+        if (request()->has('search')) {
+            $posts = Posts::getPostBySearchAndUserLogin(request('search'));
+        } else {
+            $posts = Posts::getPostByUserLogin();
+        }
 
         return view('member.blogs.index', ['posts' => $posts]);
     }

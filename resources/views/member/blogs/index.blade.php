@@ -7,12 +7,26 @@
 
     <div class="py-12">
         <div class="max-w7xl mx-auto sm:px-6 lg:px-8">
-            <a href="{{route('member.blogs.create')}}" class="mb-4 inline-block">
-                <x-primary-button>Tambah</x-primary-button>
-            </a>
-            <a href="{{route('member.blogs.trash')}}" class="mb-4 inline-block">
-                <x-secondary-button>Tempat Sampah</x-secondary-button>
-            </a>
+            <div class="flex justify-between items-center mb-6">
+                <div class="flex items-center space-x-4">
+                    <a href="{{route('member.blogs.create')}}">
+                        <x-primary-button>Tambah</x-primary-button>
+                    </a>
+                    <a href="{{route('member.blogs.trash')}}">
+                        <x-secondary-button>Tempat Sampah</x-secondary-button>
+                    </a>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <form action="{{route('member.blogs.index')}}" method="GET">
+                        <input type="text" name="search" class="border border-gray-200 p-2 rounded-md" placeholder="Cari judul blog">
+                        <button type="submit" class="bg-blue-500 text-white p-2 rounded-md">Cari</button>
+                    </form>
+                    <a href="{{route('member.blogs.index')}}">
+                        <x-secondary-button>Reset</x-secondary-button>
+                    </a>
+                </div>
+            </div>
+
             <div class="bg-white shadow-sm sm-rounded-lg overflow-x-auto">
                 <div class="p6 bg-white border-b border-gray-200">
                     <table class="w-full whitespace-no-wrap-full whitespace-no-wrap table-fixed">

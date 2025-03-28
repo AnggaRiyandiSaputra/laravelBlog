@@ -54,6 +54,14 @@ class Posts extends Model
             ->orderBy('id', 'desc')
             ->paginate(10);
     }
+    public static function getPostBySearchAndUserLogin($search)
+    {
+        $user = Auth::user();
+        return self::where('user_id', $user->id)
+            ->where('title', 'like', '%' . $search . '%')
+            ->orderBy('id', 'desc')
+            ->paginate(10);
+    }
 
     public static function boot()
     {
