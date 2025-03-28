@@ -7,11 +7,8 @@
 
     <div class="py-12">
         <div class="max-w7xl mx-auto sm:px-6 lg:px-8">
-            <a href="{{route('member.blogs.create')}}" class="mb-4 inline-block">
-                <x-primary-button>Tambah</x-primary-button>
-            </a>
-            <a href="{{route('member.blogs.trash')}}" class="mb-4 inline-block">
-                <x-secondary-button>Tempat Sampah</x-secondary-button>
+            <a href="{{route('member.blogs.index')}}" class="mb-4 inline-block">
+                <x-primary-button>Kembali</x-primary-button>
             </a>
             <div class="bg-white shadow-sm sm-rounded-lg overflow-x-auto">
                 <div class="p6 bg-white border-b border-gray-200">
@@ -36,12 +33,11 @@
                                 <td class="border px-6 py-4 text-center text-gray-500 text-sm hidden lg:table-cell"> {{$item->created_at->isoFormat('dddd, D MMMM Y')}}</td>
                                 <td class="border px-6 py-4 text-center text-sm hidden lg:table-cell"> {{$item->status}}</td>
                                 <td class="border px-6 py-4 text-center">
-                                    <form action=" {{route('member.blogs.destroy',['posts'=>$item->id])}} " class="inline" method="POST">
+                                    <form action=" {{route('member.blogs.force-delete',['id'=>$item->id])}} " class="inline" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <a href=" {{route('member.blogs.edit',['posts'=>$item->id])}} " class="text-blue-600 hover:text-blue-400 px-2">edit</a>
-                                        <a href="" class="text-gray-600 hover:text-gray-400 px-2">lihat</a>
-                                        <button class="text-red-600 hover:text-red-400 px-2" type="submit">hapus</button>
+                                        <a href=" {{route('member.blogs.restore',['id'=>$item->id])}} " class="text-blue-600 hover:text-blue-400 px-2">kemabalikan data</a>
+                                        <button class="text-red-600 hover:text-red-400 px-2" type="submit">hapus permanen</button>
                                     </form>
                                 </td>
                             </tr>

@@ -18,7 +18,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     //member
-    Route::resource('member/blogs', BlogController::class)->names([
+    Route::controller(BlogController::class)->group(function () {
+        Route::get('/member/blogs/trash', 'trash')->name('member.blogs.trash');
+        Route::get('/member/blogs/{id}/restore', 'restore')->name('member.blogs.restore');
+        Route::delete('/member/blogs/{id}/force-delete', 'forceDelete')->name('member.blogs.force-delete');
+    });
+    Route::resource('/member/blogs', BlogController::class)->names([
         'index' => 'member.blogs.index',
         'create' => 'member.blogs.create',
         'store' => 'member.blogs.store',

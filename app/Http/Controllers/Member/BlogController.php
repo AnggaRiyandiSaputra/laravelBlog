@@ -103,4 +103,33 @@ class BlogController extends Controller
 
         return redirect()->route('member.blogs.index')->with('success', 'Data berhasil dihapus');
     }
+
+    public function trash()
+    {
+        $posts = Posts::onlyTrashed()->paginate(10);
+
+        return view('member.blogs.trash', ['posts' => $posts]);
+    }
+
+    public function restore($id)
+    {
+        $posts = Posts::onlyTrashed()->findOrFail($id)->restore();
+
+        return redirect()->route('member.blogs.index')->with('success', 'Data berhasil direstore');
+    }
+
+    public function forceDelete($id)
+    {
+        $posts = Posts::onlyTrashed()->findOrFail($id);
+        if ($posts->thumbnail) {
+            $old_thumbnail = storage_path('app/public/thumbnails/' . $posts->thumbnail);
+            if (file_exists($old_thumbnail)) {
+                unlink($old_thumbnail);
+            }
+        }
+
+        $posts->forceDelete();
+
+        return redirect()->route('member.blogs.index')->with('success', 'Data berhasil dihapus permanen');
+    }
 }
