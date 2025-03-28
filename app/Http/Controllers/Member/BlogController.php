@@ -7,6 +7,7 @@ use App\Http\Requests\PostsRequest;
 use App\Models\Posts;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class BlogController extends Controller
 {
@@ -66,6 +67,7 @@ class BlogController extends Controller
      */
     public function edit(Posts $posts)
     {
+        Gate::authorize('edit', $posts);
         return view('member.blogs.edit', ['blog' => $posts]);
     }
 
@@ -74,6 +76,7 @@ class BlogController extends Controller
      */
     public function update(PostsRequest $request, Posts $posts): RedirectResponse
     {
+        Gate::authorize('update', $posts);
         $validated = $request->validated();
 
         if ($request->hasFile('thumbnail')) {
@@ -103,6 +106,7 @@ class BlogController extends Controller
      */
     public function destroy(Posts $posts)
     {
+        Gate::authorize('delete', $posts);
         $posts->delete();
 
         return redirect()->route('member.blogs.index')->with('success', 'Data berhasil dihapus');
@@ -117,7 +121,9 @@ class BlogController extends Controller
 
     public function restore($id)
     {
-        $posts = Posts::onlyTrashed()->findOrFail($id)->restore();
+        $posts = Posts::onlyTrashed()->findOrFail($id);
+        Gate::authorize('restore', $posts);
+        $posts->restore();
 
         return redirect()->route('member.blogs.index')->with('success', 'Data berhasil direstore');
     }
@@ -125,6 +131,7 @@ class BlogController extends Controller
     public function forceDelete($id)
     {
         $posts = Posts::onlyTrashed()->findOrFail($id);
+        Gate::authorize('forceDelete', $posts);
         if ($posts->thumbnail) {
             $old_thumbnail = storage_path('app/public/thumbnails/' . $posts->thumbnail);
             if (file_exists($old_thumbnail)) {
