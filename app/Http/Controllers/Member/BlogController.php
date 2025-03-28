@@ -25,15 +25,28 @@ class BlogController extends Controller
      */
     public function create()
     {
-        //
+        return view('member.blogs.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(PostsRequest $request): RedirectResponse
     {
-        //
+        $validated = $request->validated();
+
+        if ($request->hasFile('thumbnail')) {
+            $image = $request->file('thumbnail');
+            $image_name = time() . '_' . $image->getClientOriginalName();
+            $destinationPath = storage_path('/app/public/thumbnails');
+
+            $image->move($destinationPath, $image_name);
+            $validated['thumbnail'] = $image_name;
+        }
+
+        Posts::create($validated);
+
+        return redirect()->route('member.blogs.index')->with('success', 'Data berhasil disimpan');
     }
 
     /**

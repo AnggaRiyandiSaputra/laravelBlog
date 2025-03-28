@@ -7,6 +7,9 @@
 
     <div class="py-12">
         <div class="max-w7xl mx-auto sm:px-6 lg:px-8">
+            <a href="{{route('member.blogs.create')}}" class="mb-4 inline-block">
+                <x-primary-button>Tambah</x-primary-button>
+            </a>
             <div class="bg-white shadow-sm sm-rounded-lg overflow-x-auto">
                 <div class="p6 bg-white border-b border-gray-200">
                     <table class="w-full whitespace-no-wrap-full whitespace-no-wrap table-fixed">

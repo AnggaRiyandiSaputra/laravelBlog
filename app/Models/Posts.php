@@ -59,6 +59,11 @@ class Posts extends Model
     {
         parent::boot();
 
+        self::creating(function ($model) {
+            $model->slug = self::generateSlug($model->title);
+            $model->user_id = Auth::id();
+        });
+
         self::updating(function ($model) {
             $model->slug = self::generateSlug($model->title, $model->id);
         });

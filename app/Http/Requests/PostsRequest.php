@@ -23,7 +23,13 @@ class PostsRequest extends FormRequest
     {
         if (request()->isMethod('post')) {
             // Create rules
-            dd('create');
+            return [
+                'title' => 'required|string|max:50',
+                'description' => 'nullable',
+                'content' => 'required',
+                'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'status' => 'required',
+            ];
         } else {
             // Update rules
             return [
