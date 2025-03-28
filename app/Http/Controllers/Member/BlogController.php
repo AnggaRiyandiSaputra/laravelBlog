@@ -99,6 +99,8 @@ class BlogController extends Controller
      */
     public function destroy(Posts $posts)
     {
-        //
+        $posts->delete();
+
+        return redirect()->route('member.blogs.index')->with('success', 'Data berhasil dihapus');
     }
 }

@@ -33,9 +33,13 @@
                                 <td class="border px-6 py-4 text-center text-gray-500 text-sm hidden lg:table-cell"> {{$item->created_at->isoFormat('dddd, D MMMM Y')}}</td>
                                 <td class="border px-6 py-4 text-center text-sm hidden lg:table-cell"> {{$item->status}}</td>
                                 <td class="border px-6 py-4 text-center">
-                                    <a href=" {{route('member.blogs.edit',['posts'=>$item->id])}} " class="text-blue-600 hover:text-blue-400 px-2">edit</a>
-                                    <a href="" class="text-gray-600 hover:text-gray-400 px-2">lihat</a>
-                                    <button class="text-red-600 hover:text-red-400 px-2">hapus</button>
+                                    <form action=" {{route('member.blogs.destroy',['posts'=>$item->id])}} " class="inline" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <a href=" {{route('member.blogs.edit',['posts'=>$item->id])}} " class="text-blue-600 hover:text-blue-400 px-2">edit</a>
+                                        <a href="" class="text-gray-600 hover:text-gray-400 px-2">lihat</a>
+                                        <button class="text-red-600 hover:text-red-400 px-2" type="submit">hapus</button>
+                                    </form>
                                 </td>
                             </tr>
                             @endforeach
