@@ -65,7 +65,9 @@ class Posts extends Model
         });
 
         self::updating(function ($model) {
-            $model->slug = self::generateSlug($model->title, $model->id);
+            if ($model->isDirty('title')) {
+                $model->slug = self::generateSlug($model->title, $model->id);
+            }
         });
     }
 }
